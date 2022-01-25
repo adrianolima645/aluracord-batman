@@ -1,37 +1,11 @@
 import { Box, Button, Text, TextField, Image }  from '@skynexui/components';
+import React from 'react';
+import { useRouter } from 'next/router'
 import appConfig from '../config.json'; 
 
-function GlobalStyle() {
-    return (
-      <style global jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style: none;
-        }
-        body {
-          font-family: 'Open Sans', sans-serif;
-        }
-        /* App fit Height */ 
-        html, body, #__next {
-          min-height: 100vh;
-          display: flex;
-          flex: 1;
-        }
-        #__next {
-          flex: 1;
-        }
-        #__next > * {
-          flex: 1;
-        }
-        /* ./App fit Height */ 
-      `}</style>
-    );
-}
+
 
 function Titulo(props) {
-    console.log(props);
     const Tag = props.tag || 'h1';
     return (
         <>
@@ -60,12 +34,14 @@ function Titulo(props) {
 // export default HomePage
 
 export default function PaginaInicial() {
-    const username = 'adrianolima645';
+
+    const [username, setUsername] = React.useState('batman');
+    const [isShowImage, setIsShowImage] = React.useState(false);
+    const roteamento = useRouter();
   
     return (
       <>
-        <GlobalStyle />
-        <Box
+         <Box
           styleSheet={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             backgroundColor: appConfig.theme.colors.primary[500],
@@ -91,6 +67,10 @@ export default function PaginaInicial() {
             {/* Formulário */}
             <Box
               as="form"
+              onSubmit = {(event) => {
+                event.preventDefault();
+                roteamento.push('/chat');
+              }}
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
@@ -103,6 +83,12 @@ export default function PaginaInicial() {
   
               <TextField
                 fullWidth
+                onChange={(event) => {
+                  let value = event.target.value;
+                  setIsShowImage(false);
+                  if (value.length > 2) setIsShowImage(true);
+                  setUsername(value);
+                }}  
                 textFieldColors={{
                   neutral: {
                     textColor: appConfig.theme.colors.neutrals[200],
@@ -143,13 +129,13 @@ export default function PaginaInicial() {
                 minHeight: '240px',
               }}
             >
-              <Image
+              {isShowImage && <Image
                 styleSheet={{
                   borderRadius: '50%',
                   marginBottom: '16px',
                 }}
                 src={`https://github.com/${username}.png`}
-              />
+              />}
               <Text
                 variant="body4"
                 styleSheet={{
