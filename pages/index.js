@@ -69,7 +69,7 @@ export default function PaginaInicial() {
               as="form"
               onSubmit = {(event) => {
                 event.preventDefault();
-                roteamento.push('/chat');
+                roteamento.push(`/chat?username=${username}`);
               }}
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -136,7 +136,7 @@ export default function PaginaInicial() {
                 }}
                 src={`https://github.com/${username}.png`}
               />}
-              <Text
+              {isShowImage && <Text
                 variant="body4"
                 styleSheet={{
                   color: appConfig.theme.colors.neutrals[200],
@@ -146,7 +146,7 @@ export default function PaginaInicial() {
                 }}
               >
                 {username}
-              </Text>
+              </Text>}
             </Box>
             {/* Photo Area */}
           </Box>
