@@ -3,6 +3,7 @@ import React from 'react';
 import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
 const SUPABASE_ANON_PUBLIC = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyNzI3NywiZXhwIjoxOTU4OTAzMjc3fQ.3kqeL4OEClMXcQsya1Eaci6A6CcCGrbnq9jgzS3Ed5Q';
 const SUPABASE_URL = 'https://litrzuatntqbfvubghds.supabase.co';
@@ -86,7 +87,7 @@ export default function ChatPage() {
                     borderRadius: '5px',
                     backgroundColor: appConfig.theme.colors.neutrals[700],
                     height: '100%',
-                    maxWidth: '70%',
+                    maxWidth: {"Breakpoints.xs": '98%', "Breakpoints.sm": '98%', "Breakpoints.md":'90%', "Breakpoints.lg": '80%', "Breakpoints.xl": '70%'},
                     maxHeight: '95vh',
                     padding: '32px',
                 }}
@@ -139,6 +140,13 @@ export default function ChatPage() {
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
+                        {/* CallBack */}
+                        <ButtonSendSticker
+                        onStickerClick={(sticker) => {
+                            // console.log('[USANDO O COMPONENTE] Salva esse sticker no banco', sticker);
+                            handleNovaMensagem(':sticker: ' + sticker);
+                        }}
+                        />
                     </Box>
                 </Box>
             </Box>
@@ -188,7 +196,7 @@ function MessageList(props) {
                 let autor = mensagem.de;
                 let igual = isEqualUser(username, autor);
                 let styleSheet = {
-                    width: '50%',
+                    width: {"Breakpoints.xs": '90%', "Breakpoints.sm": '85%', "Breakpoints.md":'80%', "Breakpoints.lg": '70%', "Breakpoints.xl": '60%'},
                     borderRadius: '5px',
                     padding: '6px',
                     marginBottom: '12px',
@@ -245,7 +253,13 @@ function MessageList(props) {
                                 {`${dataM.getDate()}/${dataM.getMonth()+1}/${dataM.getFullYear()} ás ${dataM.getHours()}:${dataM.getMinutes()}`}
                             </Text>
                         </Box>
-                        {mensagem.texto}
+                        {mensagem.texto.startsWith(':sticker:')
+                            ? (
+                                <Image src={mensagem.texto.replace(':sticker:', '')} />
+                            )
+                            : (
+                                mensagem.texto
+                            )}
                     </Text>
                 );
             })}

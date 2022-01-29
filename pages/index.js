@@ -120,6 +120,7 @@ export default function PaginaInicial() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 maxWidth: '200px',
+                width: '200px',
                 padding: '16px',
                 backgroundColor: appConfig.theme.colors.neutrals[800],
                 border: '1px solid',
