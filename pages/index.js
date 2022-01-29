@@ -2,36 +2,7 @@ import { Box, Button, Text, TextField, Image }  from '@skynexui/components';
 import React from 'react';
 import { useRouter } from 'next/router'
 import appConfig from '../config.json'; 
-
-
-
-function Titulo(props) {
-    const Tag = props.tag || 'h1';
-    return (
-        <>
-            <><Tag>{props.children}</Tag>
-            <style jsx>{`
-            ${Tag} {
-                color: ${appConfig.theme.colors.neutrals['000']};
-                font-size: 24px;
-                font-weight: 600;
-            }
-            `}</style></>
-        </>
-    );
-}
-
-// // Component React
-// function HomePage() {
-//     return (
-//         <div>
-//             <GlobalStyle />
-//             <Titulo tag="h2">Boas vindas de volta!</Titulo>
-//         </div>
-//     );
-// }
-
-// export default HomePage
+import Titulo from '../src/components/Titulo';
 
 export default function PaginaInicial() {
 
