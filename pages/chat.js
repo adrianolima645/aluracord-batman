@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 import Header from '../src/components/Header';
 import MessageList from '../src/components/MessageList';
+import Spinner from '../src/components/Spinner';
 
 const SUPABASE_ANON_PUBLIC = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyNzI3NywiZXhwIjoxOTU4OTAzMjc3fQ.3kqeL4OEClMXcQsya1Eaci6A6CcCGrbnq9jgzS3Ed5Q';
 const SUPABASE_URL = 'https://litrzuatntqbfvubghds.supabase.co';
@@ -107,7 +108,7 @@ export default function ChatPage() {
                         padding: '16px',
                     }}
                 >
-
+                    {mensagens.length === 0 && <Spinner/>}
                     <MessageList mensagens={mensagens} username={username}/>
 
                     <Box
